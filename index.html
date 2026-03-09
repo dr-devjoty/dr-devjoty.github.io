@@ -8,21 +8,54 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        navy: { 50:'#f0f4f8', 100:'#d9e2ec', 200:'#bcccdc', 300:'#9fb3c8', 400:'#829ab1', 500:'#627d98', 600:'#486581', 700:'#334e68', 800:'#243b53', 900:'#102a43' },
-                        teal: { 50:'#effcf6', 100:'#c6f7e2', 200:'#8eedc7', 300:'#65d6ad', 400:'#3ebd93', 500:'#27ab83', 600:'#199473', 700:'#147d64', 800:'#0c6b58', 900:'#014d40' },
-                        gold: { 400:'#d4a843', 500:'#c9972c' }
+                        medical: {
+                            50:  '#f0f6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#1d4ed8',
+                            700: '#1e3a8a',
+                            800: '#1e2f6b',
+                            900: '#0f1f4a',
+                        },
+                        teal: {
+                            50:  '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                        slate: {
+                            50:  '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
                     },
                     fontFamily: {
-                        display: ['Playfair Display', 'Georgia', 'serif'],
-                        body: ['Source Sans 3', 'system-ui', 'sans-serif'],
-                        accent: ['Lora', 'Georgia', 'serif'],
+                        serif:  ['Merriweather', 'Georgia', 'serif'],
+                        sans:   ['Inter', 'system-ui', 'sans-serif'],
+                        label:  ['Lato', 'system-ui', 'sans-serif'],
                     }
                 }
             }
@@ -30,119 +63,124 @@
     </script>
     <style>
         html { scroll-behavior: smooth; }
-        body { font-family: 'Source Sans 3', sans-serif; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #f8fafc; }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #102a43; }
-        ::-webkit-scrollbar-thumb { background: #27ab83; border-radius: 4px; }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #14b8a6; border-radius: 3px; }
 
-        /* Animated gradient line */
-        .accent-line {
-            height: 3px;
-            background: linear-gradient(90deg, #27ab83, #199473, #d4a843, #27ab83);
+        /* Medical cross watermark */
+        .medical-cross {
+            position: absolute;
+            opacity: 0.04;
+            font-size: 20rem;
+            color: #14b8a6;
+            pointer-events: none;
+        }
+
+        /* Animated top bar */
+        .top-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #1d4ed8, #14b8a6, #1d4ed8);
             background-size: 200% 100%;
-            animation: shimmer 4s ease-in-out infinite;
+            animation: slide-gradient 4s linear infinite;
         }
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        /* Section reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes slide-gradient {
+            0%   { background-position: 0%   50%; }
+            100% { background-position: 200% 50%; }
         }
 
-        /* Hero parallax */
+        /* Hero */
         .hero-bg {
-            background: linear-gradient(135deg, #102a43 0%, #243b53 40%, #0c6b58 100%);
-            position: relative;
+            background: linear-gradient(160deg, #0f1f4a 0%, #1e3a8a 45%, #0d9488 100%);
         }
         .hero-bg::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at 70% 20%, rgba(39,171,131,0.15) 0%, transparent 60%),
-                        radial-gradient(ellipse at 20% 80%, rgba(212,168,67,0.08) 0%, transparent 50%);
-        }
-        .hero-bg::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background: radial-gradient(ellipse at 80% 10%, rgba(96,165,250,0.12) 0%, transparent 55%),
+                        radial-gradient(ellipse at 10% 90%, rgba(45,212,191,0.10) 0%, transparent 55%);
         }
 
-        /* Photo frame */
-        .photo-frame {
+        /* Doctor photo */
+        .doctor-photo-wrap {
+            position: relative;
+            display: inline-block;
+        }
+        .doctor-photo-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: conic-gradient(#14b8a6, #3b82f6, #14b8a6);
+            z-index: 0;
+            animation: spin-border 8s linear infinite;
+        }
+        @keyframes spin-border {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .doctor-photo-inner {
             position: relative;
             z-index: 1;
-        }
-        .photo-frame::before {
-            content: '';
-            position: absolute;
-            inset: -6px;
-            border: 2px solid rgba(39,171,131,0.4);
-            border-radius: 12px;
-            z-index: -1;
-        }
-        .photo-frame::after {
-            content: '';
-            position: absolute;
-            inset: -12px;
-            border: 1px solid rgba(39,171,131,0.15);
-            border-radius: 16px;
-            z-index: -1;
-        }
-
-        /* Timeline */
-        .timeline-line {
-            position: absolute;
-            left: 24px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, #27ab83, #199473, #d4a843);
-        }
-        @media (min-width: 768px) {
-            .timeline-line { left: 50%; transform: translateX(-50%); }
-        }
-        .timeline-dot {
-            width: 14px; height: 14px;
-            border: 3px solid #27ab83;
-            background: #102a43;
             border-radius: 50%;
-            position: absolute;
-            left: 18px;
-            top: 6px;
-            z-index: 2;
-            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 4px solid #0f1f4a;
         }
-        @media (min-width: 768px) {
-            .timeline-dot { left: 50%; transform: translateX(-50%); }
+        .doctor-photo-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
         }
-        .timeline-item:hover .timeline-dot {
-            background: #27ab83;
-            box-shadow: 0 0 16px rgba(39,171,131,0.5);
-        }
-
-        /* Card hover */
-        .card-hover {
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(16,42,67,0.12);
+        .doctor-photo-fallback {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a8a, #0d9488);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Stagger children */
-        .stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+        /* Credential pill */
+        .cred-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            border: 1.5px solid rgba(45,212,191,0.35);
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #ccfbf1;
+            background: rgba(45,212,191,0.08);
+            letter-spacing: 0.03em;
+            transition: all 0.25s ease;
+        }
+        .cred-pill:hover {
+            background: rgba(45,212,191,0.18);
+            border-color: rgba(45,212,191,0.6);
+        }
+
+        /* Scroll indicator */
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translateY(0); opacity: 0.8; }
+            50%       { transform: translateY(6px); opacity: 0.4; }
+        }
+        .scroll-dot { animation: scroll-bounce 1.8s ease-in-out infinite; }
+
+        /* Section reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Stagger */
+        .stagger > * { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
         .stagger.active > *:nth-child(1) { transition-delay: 0.05s; }
         .stagger.active > *:nth-child(2) { transition-delay: 0.12s; }
         .stagger.active > *:nth-child(3) { transition-delay: 0.19s; }
@@ -151,216 +189,446 @@
         .stagger.active > *:nth-child(6) { transition-delay: 0.40s; }
         .stagger.active > * { opacity: 1; transform: translateY(0); }
 
-        /* Nav active link */
-        .nav-link { position: relative; }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #27ab83;
-            transition: width 0.3s ease;
+        /* Card */
+        .med-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
         }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .med-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(15, 31, 74, 0.10);
+        }
 
-        /* Credential badge */
-        .cred-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border: 1px solid rgba(39,171,131,0.3);
+        /* Section label */
+        .section-label {
+            display: inline-block;
+            padding: 4px 14px;
+            background: rgba(20,184,166,0.1);
+            border: 1px solid rgba(20,184,166,0.25);
             border-radius: 100px;
-            font-size: 0.8rem;
-            color: #c6f7e2;
-            background: rgba(39,171,131,0.08);
-            transition: all 0.3s ease;
-        }
-        .cred-badge:hover {
-            border-color: #27ab83;
-            background: rgba(39,171,131,0.15);
+            color: #0d9488;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
-        /* Floating shapes */
-        .float-shape {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.04;
-            animation: float 8s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-
-        /* Section divider */
-        .section-title {
+        /* Section heading underline */
+        .section-heading {
             position: relative;
             display: inline-block;
         }
-        .section-title::after {
+        .section-heading::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -10px;
             left: 0;
-            width: 50px;
+            width: 48px;
             height: 3px;
-            background: linear-gradient(90deg, #27ab83, #d4a843);
+            background: linear-gradient(90deg, #14b8a6, #3b82f6);
             border-radius: 2px;
         }
+        .section-heading.center::after { left: 50%; transform: translateX(-50%); }
+
+        /* Nav */
+        .nav-link {
+            position: relative;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.75);
+            transition: color 0.2s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0; width: 0; height: 2px;
+            background: #2dd4bf;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active { color: #fff; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
         /* Mobile menu */
-        .mobile-menu {
+        .mobile-drawer {
             transform: translateX(100%);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .mobile-menu.open { transform: translateX(0); }
+        .mobile-drawer.open { transform: translateX(0); }
 
-        /* Pulse ring on photo */
-        @keyframes pulse-ring {
-            0% { transform: scale(1); opacity: 0.4; }
-            100% { transform: scale(1.15); opacity: 0; }
-        }
-        .pulse-ring {
+        /* Timeline */
+        .tl-line {
             position: absolute;
-            inset: -8px;
-            border: 2px solid #27ab83;
-            border-radius: 12px;
-            animation: pulse-ring 3s ease-in-out infinite;
+            left: 18px;
+            top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #14b8a6, #3b82f6, #1d4ed8);
+        }
+        @media (min-width: 768px) {
+            .tl-line { left: 50%; transform: translateX(-50%); }
+        }
+        .tl-dot {
+            position: absolute;
+            left: 11px; top: 22px;
+            width: 16px; height: 16px;
+            border: 3px solid #14b8a6;
+            background: #fff;
+            border-radius: 50%;
+            z-index: 2;
+            transition: background 0.25s, box-shadow 0.25s;
+        }
+        @media (min-width: 768px) {
+            .tl-dot { left: 50%; transform: translateX(-50%); }
+        }
+        .tl-item:hover .tl-dot {
+            background: #14b8a6;
+            box-shadow: 0 0 14px rgba(20,184,166,0.5);
+        }
+
+        /* Stat number */
+        .stat-num {
+            font-family: 'Merriweather', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1d4ed8;
+            line-height: 1;
+        }
+
+        /* Hero animation */
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fade-up 0.8s cubic-bezier(0.16,1,0.3,1) both; }
+
+        /* Expertise tag */
+        .expertise-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #f0f6ff;
+            border: 1.5px solid #bfdbfe;
+            border-radius: 100px;
+            color: #1e3a8a;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: all 0.25s;
+        }
+        .expertise-tag:hover {
+            background: #dbeafe;
+            border-color: #3b82f6;
+        }
+
+        /* Contact card */
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 20px 24px;
+            background: #fff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .contact-card:hover {
+            border-color: #14b8a6;
+            box-shadow: 0 8px 24px rgba(20,184,166,0.12);
+            transform: translateY(-2px);
+        }
+        .contact-icon {
+            width: 52px; height: 52px;
+            background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.3s;
+        }
+        .contact-card:hover .contact-icon {
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+        }
+        .contact-card:hover .contact-icon i { color: #fff; }
+
+        /* Pulse on photo (subtle) */
+        @keyframes gentle-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(20,184,166,0.3); }
+            50%       { box-shadow: 0 0 0 16px rgba(20,184,166,0); }
+        }
+        .photo-pulse { animation: gentle-pulse 3s ease-in-out infinite; }
+
+        /* Leadership card */
+        .leadership-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 18px;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .leadership-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(45,212,191,0.4);
+        }
+
+        /* Responsive helpers */
+        @media (max-width: 640px) {
+            .stat-num { font-size: 1.6rem; }
         }
     </style>
 </head>
-<body class="bg-white text-navy-900">
+<body class="bg-slate-50 text-slate-800">
 
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500">
-        <div class="accent-line"></div>
+    <!-- ==================== NAVBAR ==================== -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-400">
+        <div class="top-bar"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 md:h-20">
-                <a href="#hero" class="font-display text-lg md:text-xl font-semibold tracking-wide text-white">
-                    Dr. Dev Joty<span class="text-teal-400">.</span>
+            <div class="flex items-center justify-between h-16 md:h-18">
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center gap-2.5 group">
+                    <div class="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center shadow-sm group-hover:bg-teal-400 transition-colors">
+                        <i class="fa-solid fa-plus text-white text-sm font-bold"></i>
+                    </div>
+                    <span class="font-serif text-base md:text-lg font-bold text-white leading-tight">
+                        Dr. Dev Joty<span class="text-teal-300">.</span>
+                    </span>
                 </a>
-                <!-- Desktop Nav -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#about" class="nav-link text-sm font-medium text-navy-200 hover:text-white tracking-wider uppercase">About</a>
-                    <a href="#education" class="nav-link text-sm font-medium text-navy-200 hover:text-white tracking-wider uppercase">Education</a>
-                    <a href="#experience" class="nav-link text-sm font-medium text-navy-200 hover:text-white tracking-wider uppercase">Experience</a>
-                    <a href="#leadership" class="nav-link text-sm font-medium text-navy-200 hover:text-white tracking-wider uppercase">Leadership</a>
-                    <a href="#contact" class="px-5 py-2 bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold rounded-full transition-all duration-300 tracking-wider uppercase">Contact</a>
+                <!-- Desktop links -->
+                <div class="hidden md:flex items-center gap-7">
+                    <a href="#about"      class="nav-link">About</a>
+                    <a href="#education"  class="nav-link">Education</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#leadership" class="nav-link">Service</a>
+                    <a href="#contact"    class="ml-2 px-5 py-2 bg-teal-500 hover:bg-teal-400 text-white text-sm font-bold rounded-full transition-all duration-300 shadow-lg shadow-teal-500/25 hover:shadow-teal-400/35 hover:-translate-y-0.5 uppercase tracking-wider">
+                        Contact
+                    </a>
                 </div>
                 <!-- Mobile toggle -->
-                <button id="menuBtn" class="md:hidden text-white p-2" aria-label="Toggle menu">
+                <button id="menuBtn" class="md:hidden flex items-center justify-center w-10 h-10 text-white rounded-lg hover:bg-white/10 transition-colors" aria-label="Toggle menu">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu fixed inset-y-0 right-0 w-72 bg-navy-900/98 backdrop-blur-lg z-50 flex flex-col pt-20 px-8 shadow-2xl">
-        <button id="closeMenu" class="absolute top-6 right-6 text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
-        <a href="#about" class="mobile-link py-4 text-lg font-medium text-navy-200 hover:text-teal-400 border-b border-navy-800 transition-colors">About</a>
-        <a href="#education" class="mobile-link py-4 text-lg font-medium text-navy-200 hover:text-teal-400 border-b border-navy-800 transition-colors">Education</a>
-        <a href="#experience" class="mobile-link py-4 text-lg font-medium text-navy-200 hover:text-teal-400 border-b border-navy-800 transition-colors">Experience</a>
-        <a href="#leadership" class="mobile-link py-4 text-lg font-medium text-navy-200 hover:text-teal-400 border-b border-navy-800 transition-colors">Leadership</a>
-        <a href="#contact" class="mt-6 px-6 py-3 bg-teal-600 text-white text-center font-semibold rounded-full transition-all hover:bg-teal-500">Contact</a>
+    <!-- ==================== MOBILE DRAWER ==================== -->
+    <div id="mobileDrawer" class="mobile-drawer fixed inset-y-0 right-0 w-72 bg-medical-900/98 backdrop-blur-xl z-50 flex flex-col shadow-2xl">
+        <div class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+            <span class="font-serif font-bold text-white text-lg">Menu</span>
+            <button id="closeDrawer" class="w-9 h-9 flex items-center justify-center text-white rounded-lg hover:bg-white/10 transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        <div class="flex flex-col px-6 py-4 gap-1 flex-1">
+            <a href="#about"      class="drawer-link flex items-center gap-3 py-4 text-base font-semibold text-slate-200 hover:text-teal-300 border-b border-white/8 transition-colors">
+                <i class="fa-solid fa-user-doctor w-5 text-teal-400 text-sm"></i> About
+            </a>
+            <a href="#education"  class="drawer-link flex items-center gap-3 py-4 text-base font-semibold text-slate-200 hover:text-teal-300 border-b border-white/8 transition-colors">
+                <i class="fa-solid fa-graduation-cap w-5 text-teal-400 text-sm"></i> Education
+            </a>
+            <a href="#experience" class="drawer-link flex items-center gap-3 py-4 text-base font-semibold text-slate-200 hover:text-teal-300 border-b border-white/8 transition-colors">
+                <i class="fa-solid fa-briefcase-medical w-5 text-teal-400 text-sm"></i> Experience
+            </a>
+            <a href="#leadership" class="drawer-link flex items-center gap-3 py-4 text-base font-semibold text-slate-200 hover:text-teal-300 border-b border-white/8 transition-colors">
+                <i class="fa-solid fa-hand-holding-heart w-5 text-teal-400 text-sm"></i> Service
+            </a>
+        </div>
+        <div class="px-6 py-6">
+            <a href="#contact" class="drawer-link block w-full py-3.5 bg-teal-500 hover:bg-teal-400 text-white text-center font-bold rounded-2xl transition-colors text-sm uppercase tracking-wider">
+                <i class="fa-solid fa-envelope mr-2"></i> Get in Touch
+            </a>
+        </div>
     </div>
-    <div id="menuOverlay" class="fixed inset-0 bg-black/40 z-40 hidden"></div>
+    <div id="drawerOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden"></div>
 
     <!-- ==================== HERO ==================== -->
-    <section id="hero" class="hero-bg min-h-screen flex items-center relative overflow-hidden">
-        <div class="float-shape w-96 h-96 bg-teal-400 -top-20 -right-20" style="animation-delay:-2s"></div>
-        <div class="float-shape w-64 h-64 bg-gold-400 bottom-10 left-10" style="animation-delay:-4s"></div>
+    <section id="hero" class="hero-bg min-h-screen flex items-center relative overflow-hidden pt-16">
 
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-0 w-full">
-            <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-                <!-- Text -->
-                <div class="order-2 md:order-1 text-center md:text-left">
-                    <p class="text-teal-300 font-accent text-sm md:text-base tracking-widest uppercase mb-4 opacity-0 animate-fade-in" style="animation: fadeSlideUp 0.8s 0.2s forwards;">Orthopedic Surgery</p>
-                    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6 opacity-0" style="animation: fadeSlideUp 0.8s 0.4s forwards;">
-                        Dr. Dev Joty<br><span class="text-teal-300">Biswas</span>
-                    </h1>
-                    <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-8 opacity-0" style="animation: fadeSlideUp 0.8s 0.6s forwards;">
-                        <span class="cred-badge"><i class="fa-solid fa-user-doctor text-teal-400"></i> MBBS</span>
-                        <span class="cred-badge"><i class="fa-solid fa-stethoscope text-teal-400"></i> BCS (Health)</span>
-                        <span class="cred-badge"><i class="fa-solid fa-award text-teal-400"></i> MRCS (UK)</span>
-                        <span class="cred-badge"><i class="fa-solid fa-bone text-teal-400"></i> FCPS Trainee</span>
+        <!-- Subtle medical cross watermark -->
+        <i class="fa-solid fa-plus medical-cross" style="right:-4rem; top:50%; transform:translateY(-50%) rotate(15deg);"></i>
+        <i class="fa-solid fa-plus medical-cross" style="left:-5rem; bottom:-2rem; font-size:14rem;"></i>
+
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+            <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16 lg:gap-20">
+
+                <!-- Photo — shown first on mobile, right side on desktop -->
+                <div class="order-1 md:order-2 md:flex-shrink-0 fade-up" style="animation-delay: 0.2s;">
+                    <div class="doctor-photo-wrap photo-pulse"
+                         style="width:clamp(180px,35vw,280px); height:clamp(180px,35vw,280px);">
+                        <div class="doctor-photo-inner" style="width:clamp(180px,35vw,280px); height:clamp(180px,35vw,280px);">
+                            <img src="profile_photo.jpg"
+                                 alt="Dr. Dev Joty Biswas"
+                                 onerror="this.style.display='none'; document.getElementById('photo-fallback').style.display='flex';">
+                            <div id="photo-fallback" class="doctor-photo-fallback" style="display:none;">
+                                <i class="fa-solid fa-user-doctor text-white" style="font-size:4rem;"></i>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-navy-200 font-body text-base md:text-lg leading-relaxed max-w-lg mx-auto md:mx-0 mb-10 opacity-0" style="animation: fadeSlideUp 0.8s 0.8s forwards;">
-                        Dedicated surgical professional with comprehensive training in orthopedic &amp; general surgery, committed to advancing patient outcomes through evidence-based care.
+                    <!-- BMC Registration badge -->
+                    <div class="mt-4 text-center fade-up" style="animation-delay: 0.5s;">
+                        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2">
+                            <i class="fa-solid fa-shield-halved text-teal-300 text-xs"></i>
+                            <span class="text-white text-xs font-semibold">BM&DC Reg. A125848</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text content -->
+                <div class="order-2 md:order-1 flex-1 text-center md:text-left">
+                    <div class="fade-up" style="animation-delay: 0.1s;">
+                        <span class="section-label" style="background: rgba(45,212,191,0.12); border-color: rgba(45,212,191,0.3); color: #5eead4;">
+                            Orthopedic Surgery
+                        </span>
+                    </div>
+
+                    <h1 class="font-serif font-bold text-white leading-tight mt-5 mb-3 fade-up"
+                        style="font-size: clamp(2rem, 5vw, 3.75rem); animation-delay: 0.25s;">
+                        Dr. Dev Joty<br>
+                        <span class="text-teal-300">Biswas</span>
+                    </h1>
+
+                    <p class="text-slate-300 text-base md:text-lg font-light mb-6 fade-up" style="animation-delay: 0.35s;">
+                        MBBS &bull; BCS (Health) &bull; MRCS Part A (UK)
                     </p>
-                    <div class="flex gap-4 justify-center md:justify-start opacity-0" style="animation: fadeSlideUp 0.8s 1s forwards;">
-                        <a href="#contact" class="px-8 py-3.5 bg-teal-500 hover:bg-teal-400 text-white font-semibold rounded-full transition-all duration-300 shadow-lg shadow-teal-500/20 hover:shadow-teal-400/30 hover:-translate-y-0.5">
-                            Get in Touch
+
+                    <!-- Credential pills -->
+                    <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-8 fade-up" style="animation-delay: 0.45s;">
+                        <span class="cred-pill"><i class="fa-solid fa-user-doctor text-teal-300"></i> MBBS (RMC)</span>
+                        <span class="cred-pill"><i class="fa-solid fa-stethoscope text-teal-300"></i> BCS (Health)</span>
+                        <span class="cred-pill"><i class="fa-solid fa-award text-teal-300"></i> MRCS (UK)</span>
+                        <span class="cred-pill"><i class="fa-solid fa-bone text-teal-300"></i> FCPS Trainee</span>
+                    </div>
+
+                    <p class="text-slate-300 text-base leading-relaxed max-w-xl mx-auto md:mx-0 mb-10 fade-up" style="animation-delay: 0.55s;">
+                        Dedicated surgical professional with comprehensive training in orthopedic &amp; general surgery, committed to advancing patient outcomes through evidence-based care at Dhaka Medical College Hospital.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start fade-up" style="animation-delay: 0.65s;">
+                        <a href="#contact"    class="px-7 py-3.5 bg-teal-500 hover:bg-teal-400 text-white font-bold rounded-full transition-all duration-300 shadow-lg shadow-teal-500/30 hover:-translate-y-0.5 text-sm uppercase tracking-wider">
+                            <i class="fa-solid fa-envelope mr-2"></i>Get in Touch
                         </a>
-                        <a href="#experience" class="px-8 py-3.5 border border-navy-300/30 hover:border-teal-400/50 text-white font-medium rounded-full transition-all duration-300 hover:-translate-y-0.5">
+                        <a href="#experience" class="px-7 py-3.5 bg-white/10 hover:bg-white/18 border border-white/25 hover:border-teal-400/50 text-white font-semibold rounded-full transition-all duration-300 hover:-translate-y-0.5 text-sm">
                             View Experience
                         </a>
                     </div>
                 </div>
-                <!-- Photo -->
-                <div class="order-1 md:order-2 flex justify-center opacity-0" style="animation: fadeSlideUp 0.8s 0.3s forwards;">
-                    <div class="photo-frame relative">
-                        <div class="pulse-ring"></div>
-                        <img src="photo.jpg"
-                             alt="Dr. Dev Joty Biswas"
-                             class="w-56 h-68 sm:w-64 sm:h-80 md:w-72 md:h-[22rem] lg:w-80 lg:h-[26rem] object-cover object-top rounded-lg shadow-2xl"
-                             onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-56 h-68 sm:w-64 sm:h-80 md:w-72 md:h-[22rem] lg:w-80 lg:h-[26rem] bg-navy-700 rounded-lg flex items-center justify-center\'><i class=\'fa-solid fa-user-doctor text-6xl text-teal-400\'></i></div>'">
-                    </div>
+            </div>
+
+            <!-- Quick stats bar -->
+            <div class="mt-14 md:mt-20 grid grid-cols-2 sm:grid-cols-4 gap-4 fade-up" style="animation-delay: 0.8s;">
+                <div class="bg-white/8 backdrop-blur-sm border border-white/12 rounded-2xl p-5 text-center">
+                    <div class="text-2xl md:text-3xl font-serif font-bold text-teal-300 mb-1">4+</div>
+                    <div class="text-slate-300 text-xs font-medium uppercase tracking-wider">Years Practice</div>
+                </div>
+                <div class="bg-white/8 backdrop-blur-sm border border-white/12 rounded-2xl p-5 text-center">
+                    <div class="text-2xl md:text-3xl font-serif font-bold text-teal-300 mb-1">6</div>
+                    <div class="text-slate-300 text-xs font-medium uppercase tracking-wider">Qualifications</div>
+                </div>
+                <div class="bg-white/8 backdrop-blur-sm border border-white/12 rounded-2xl p-5 text-center">
+                    <div class="text-2xl md:text-3xl font-serif font-bold text-teal-300 mb-1">4</div>
+                    <div class="text-slate-300 text-xs font-medium uppercase tracking-wider">Hospitals</div>
+                </div>
+                <div class="bg-white/8 backdrop-blur-sm border border-white/12 rounded-2xl p-5 text-center">
+                    <div class="text-2xl md:text-3xl font-serif font-bold text-teal-300 mb-1">5</div>
+                    <div class="text-slate-300 text-xs font-medium uppercase tracking-wider">Yrs Volunteering</div>
                 </div>
             </div>
         </div>
 
         <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-navy-300 opacity-0" style="animation: fadeSlideUp 0.8s 1.4s forwards;">
-            <span class="text-xs tracking-widest uppercase">Scroll</span>
-            <div class="w-5 h-8 border-2 border-navy-300/40 rounded-full flex justify-center pt-1">
-                <div class="w-1 h-2 bg-teal-400 rounded-full animate-bounce"></div>
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 fade-up" style="animation-delay: 1s;">
+            <span class="text-slate-400 text-xs tracking-widest uppercase">Scroll</span>
+            <div class="w-5 h-9 border-2 border-white/20 rounded-full flex justify-center pt-1.5">
+                <div class="scroll-dot w-1.5 h-2.5 bg-teal-400 rounded-full"></div>
             </div>
         </div>
     </section>
 
-    <style>
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-
     <!-- ==================== ABOUT ==================== -->
     <section id="about" class="py-20 md:py-28 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="reveal grid md:grid-cols-3 gap-12 items-start">
-                <div class="md:col-span-1">
-                    <p class="text-teal-600 font-accent text-sm tracking-widest uppercase mb-2">Introduction</p>
-                    <h2 class="font-display text-3xl md:text-4xl font-bold text-navy-900 section-title">About Me</h2>
-                </div>
-                <div class="md:col-span-2">
-                    <p class="text-navy-600 text-lg leading-relaxed mb-8 font-body">
+
+            <!-- Heading -->
+            <div class="reveal text-center mb-14">
+                <span class="section-label mb-4 inline-block">Introduction</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-medical-900 section-heading center mt-4">About Dr. Dev Joty</h2>
+            </div>
+
+            <div class="reveal grid md:grid-cols-5 gap-10 md:gap-16 items-start">
+                <!-- Summary -->
+                <div class="md:col-span-3">
+                    <p class="text-slate-600 text-base md:text-lg leading-relaxed mb-6">
                         I am a dedicated and compassionate medical professional with comprehensive training in general and orthopedic surgery. With an MBBS from Rajshahi Medical College, BCS (Health) certification, MRCS Part A from the UK, and currently pursuing FCPS Part-II and MS in Orthopedic Surgery at Dhaka Medical College Hospital, I bring a strong foundation in surgical excellence.
                     </p>
-                    <p class="text-navy-600 text-lg leading-relaxed mb-10 font-body">
-                        I am eager to contribute to dynamic healthcare teams where I can support innovative treatment approaches, advance surgical outcomes, and improve patient welfare. My commitment to continuous learning and professional development drives me to provide high-quality, evidence-based medical care in fast-paced hospital settings.
+                    <p class="text-slate-600 text-base md:text-lg leading-relaxed mb-10">
+                        I am eager to contribute to dynamic healthcare teams where I can support innovative treatment approaches, advance surgical outcomes, and improve patient welfare. My commitment to continuous learning drives me to provide high-quality, evidence-based medical care in fast-paced hospital settings.
                     </p>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 stagger">
-                        <div class="text-center p-5 bg-navy-50 rounded-xl card-hover">
-                            <div class="text-3xl font-display font-bold text-teal-600">4+</div>
-                            <div class="text-sm text-navy-500 mt-1">Years Experience</div>
+
+                    <!-- Areas of expertise -->
+                    <div>
+                        <h3 class="font-serif font-bold text-medical-800 text-lg mb-4">Areas of Expertise</h3>
+                        <div class="flex flex-wrap gap-2.5">
+                            <span class="expertise-tag"><i class="fa-solid fa-bone text-medical-600 text-sm"></i> Orthopedic Surgery</span>
+                            <span class="expertise-tag"><i class="fa-solid fa-scalpel text-medical-600 text-sm"></i> General Surgery</span>
+                            <span class="expertise-tag"><i class="fa-solid fa-kit-medical text-medical-600 text-sm"></i> Emergency Medicine</span>
+                            <span class="expertise-tag"><i class="fa-solid fa-person-falling-burst text-medical-600 text-sm"></i> Trauma Care</span>
+                            <span class="expertise-tag"><i class="fa-solid fa-heart-pulse text-medical-600 text-sm"></i> Inpatient Management</span>
+                            <span class="expertise-tag"><i class="fa-solid fa-microscope text-medical-600 text-sm"></i> Evidence-Based Practice</span>
                         </div>
-                        <div class="text-center p-5 bg-navy-50 rounded-xl card-hover">
-                            <div class="text-3xl font-display font-bold text-teal-600">6</div>
-                            <div class="text-sm text-navy-500 mt-1">Qualifications</div>
+                    </div>
+                </div>
+
+                <!-- Info card -->
+                <div class="md:col-span-2">
+                    <div class="med-card p-6 md:p-7">
+                        <div class="flex items-center gap-3 mb-6 pb-5 border-b border-slate-100">
+                            <div class="w-12 h-12 bg-medical-50 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-id-card text-medical-700 text-lg"></i>
+                            </div>
+                            <div>
+                                <div class="font-serif font-bold text-medical-900 text-base">Dr. Dev Joty Biswas</div>
+                                <div class="text-teal-600 text-xs font-semibold mt-0.5">Orthopedic Surgeon in Training</div>
+                            </div>
                         </div>
-                        <div class="text-center p-5 bg-navy-50 rounded-xl card-hover">
-                            <div class="text-3xl font-display font-bold text-teal-600">4</div>
-                            <div class="text-sm text-navy-500 mt-1">Hospitals</div>
-                        </div>
-                        <div class="text-center p-5 bg-navy-50 rounded-xl card-hover">
-                            <div class="text-3xl font-display font-bold text-teal-600">5</div>
-                            <div class="text-sm text-navy-500 mt-1">Years Volunteering</div>
-                        </div>
+                        <ul class="space-y-4 text-sm">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-location-dot text-teal-500 w-4 mt-0.5 flex-shrink-0"></i>
+                                <div>
+                                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-0.5">Location</div>
+                                    <div class="text-slate-700 font-medium">Dhaka, Bangladesh</div>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-hospital text-teal-500 w-4 mt-0.5 flex-shrink-0"></i>
+                                <div>
+                                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-0.5">Current Position</div>
+                                    <div class="text-slate-700 font-medium">MS Phase-A (Ortho), DMCH</div>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-shield-halved text-teal-500 w-4 mt-0.5 flex-shrink-0"></i>
+                                <div>
+                                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-0.5">Registration</div>
+                                    <div class="text-slate-700 font-medium">BM&DC — A125848</div>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-phone text-teal-500 w-4 mt-0.5 flex-shrink-0"></i>
+                                <div>
+                                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-0.5">Phone</div>
+                                    <a href="tel:+8801743409875" class="text-medical-700 font-medium hover:text-teal-600 transition-colors">+880 1743-409875</a>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-envelope text-teal-500 w-4 mt-0.5 flex-shrink-0"></i>
+                                <div>
+                                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-0.5">Email</div>
+                                    <a href="mailto:shuvojoty58th@gmail.com" class="text-medical-700 font-medium hover:text-teal-600 transition-colors text-xs break-all">shuvojoty58th@gmail.com</a>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -368,118 +636,126 @@
     </section>
 
     <!-- ==================== EDUCATION ==================== -->
-    <section id="education" class="py-20 md:py-28 bg-navy-50/50 relative">
+    <section id="education" class="py-20 md:py-28 bg-slate-50 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="reveal text-center mb-16">
-                <p class="text-teal-600 font-accent text-sm tracking-widest uppercase mb-2">Academic Background</p>
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-navy-900 inline-block section-title">Education</h2>
+            <div class="reveal text-center mb-14">
+                <span class="section-label mb-4 inline-block">Academic Background</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-medical-900 section-heading center mt-4">Education</h2>
             </div>
 
-            <div class="reveal grid md:grid-cols-2 lg:grid-cols-3 gap-8 stagger">
+            <!-- Degree cards -->
+            <div class="reveal grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger mb-12">
                 <!-- MBBS -->
-                <div class="bg-white rounded-2xl p-8 card-hover shadow-sm border border-navy-100/60 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 rounded-bl-full"></div>
-                    <div class="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center justify-center mb-5">
-                        <i class="fa-solid fa-graduation-cap text-teal-600 text-xl"></i>
+                <div class="med-card p-7 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-teal-50 rounded-bl-[50px]"></div>
+                    <div class="w-11 h-11 bg-medical-50 rounded-xl flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-graduation-cap text-medical-600 text-lg"></i>
                     </div>
-                    <div class="text-xs font-semibold text-teal-600 tracking-wider uppercase mb-2">2016 – 2021</div>
-                    <h3 class="font-display text-xl font-bold text-navy-900 mb-2">MBBS</h3>
-                    <p class="text-navy-500 font-body text-sm mb-4">Bachelor of Medicine & Bachelor of Surgery</p>
-                    <div class="flex items-center gap-2 text-navy-400 text-sm">
-                        <i class="fa-solid fa-location-dot text-teal-500"></i>
+                    <span class="inline-block text-xs font-bold text-teal-600 tracking-wider uppercase bg-teal-50 px-3 py-1 rounded-full mb-3">2016 – 2021</span>
+                    <h3 class="font-serif text-xl font-bold text-medical-900 mb-1.5">MBBS</h3>
+                    <p class="text-slate-500 text-sm mb-4">Bachelor of Medicine &amp; Bachelor of Surgery</p>
+                    <div class="flex items-center gap-2 text-slate-400 text-sm">
+                        <i class="fa-solid fa-location-dot text-teal-500 text-xs"></i>
                         Rajshahi Medical College, Bangladesh
                     </div>
                 </div>
 
                 <!-- HSC -->
-                <div class="bg-white rounded-2xl p-8 card-hover shadow-sm border border-navy-100/60 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 rounded-bl-full"></div>
-                    <div class="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center justify-center mb-5">
-                        <i class="fa-solid fa-book-open text-teal-600 text-xl"></i>
+                <div class="med-card p-7 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-teal-50 rounded-bl-[50px]"></div>
+                    <div class="w-11 h-11 bg-medical-50 rounded-xl flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-book-open text-medical-600 text-lg"></i>
                     </div>
-                    <div class="text-xs font-semibold text-teal-600 tracking-wider uppercase mb-2">Passed 2015</div>
-                    <h3 class="font-display text-xl font-bold text-navy-900 mb-2">HSC</h3>
-                    <p class="text-navy-500 font-body text-sm mb-1">Higher Secondary Certificate</p>
-                    <p class="text-teal-600 font-semibold text-sm mb-4">GPA: 5.00</p>
-                    <div class="flex items-center gap-2 text-navy-400 text-sm">
-                        <i class="fa-solid fa-location-dot text-teal-500"></i>
+                    <span class="inline-block text-xs font-bold text-teal-600 tracking-wider uppercase bg-teal-50 px-3 py-1 rounded-full mb-3">Passed 2015</span>
+                    <h3 class="font-serif text-xl font-bold text-medical-900 mb-1.5">HSC</h3>
+                    <p class="text-slate-500 text-sm mb-1">Higher Secondary Certificate</p>
+                    <p class="text-teal-600 font-bold text-sm mb-4">GPA 5.00 / 5.00</p>
+                    <div class="flex items-center gap-2 text-slate-400 text-sm">
+                        <i class="fa-solid fa-location-dot text-teal-500 text-xs"></i>
                         Rajshahi New Govt. Degree College
                     </div>
                 </div>
 
                 <!-- SSC -->
-                <div class="bg-white rounded-2xl p-8 card-hover shadow-sm border border-navy-100/60 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 rounded-bl-full"></div>
-                    <div class="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center justify-center mb-5">
-                        <i class="fa-solid fa-school text-teal-600 text-xl"></i>
+                <div class="med-card p-7 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-teal-50 rounded-bl-[50px]"></div>
+                    <div class="w-11 h-11 bg-medical-50 rounded-xl flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-school text-medical-600 text-lg"></i>
                     </div>
-                    <div class="text-xs font-semibold text-teal-600 tracking-wider uppercase mb-2">Passed 2013</div>
-                    <h3 class="font-display text-xl font-bold text-navy-900 mb-2">SSC</h3>
-                    <p class="text-navy-500 font-body text-sm mb-1">Secondary School Certificate</p>
-                    <p class="text-teal-600 font-semibold text-sm mb-4">GPA: 5.00</p>
-                    <div class="flex items-center gap-2 text-navy-400 text-sm">
-                        <i class="fa-solid fa-location-dot text-teal-500"></i>
+                    <span class="inline-block text-xs font-bold text-teal-600 tracking-wider uppercase bg-teal-50 px-3 py-1 rounded-full mb-3">Passed 2013</span>
+                    <h3 class="font-serif text-xl font-bold text-medical-900 mb-1.5">SSC</h3>
+                    <p class="text-slate-500 text-sm mb-1">Secondary School Certificate</p>
+                    <p class="text-teal-600 font-bold text-sm mb-4">GPA 5.00 / 5.00</p>
+                    <div class="flex items-center gap-2 text-slate-400 text-sm">
+                        <i class="fa-solid fa-location-dot text-teal-500 text-xs"></i>
                         St. Joseph's School, Bonpara, Natore
                     </div>
                 </div>
             </div>
 
-            <!-- Credentials Row -->
-            <div class="reveal mt-16">
-                <h3 class="font-display text-xl font-semibold text-navy-800 text-center mb-8">Professional Qualifications</h3>
-                <div class="flex flex-wrap justify-center gap-4 stagger">
-                    <div class="bg-white px-6 py-4 rounded-xl shadow-sm border border-navy-100/60 card-hover flex items-center gap-3">
-                        <div class="w-10 h-10 bg-navy-900 rounded-lg flex items-center justify-center">
-                            <i class="fa-solid fa-certificate text-teal-400 text-sm"></i>
+            <!-- Professional Qualifications -->
+            <div class="reveal">
+                <div class="med-card p-7 md:p-8">
+                    <div class="flex items-center gap-3 mb-7 pb-5 border-b border-slate-100">
+                        <div class="w-11 h-11 bg-medical-900 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-certificate text-teal-300 text-base"></i>
                         </div>
-                        <div>
-                            <div class="font-semibold text-navy-900 text-sm">BCS (Health)</div>
-                            <div class="text-xs text-navy-400">Bangladesh Civil Service</div>
-                        </div>
+                        <h3 class="font-serif font-bold text-medical-900 text-xl">Professional Qualifications</h3>
                     </div>
-                    <div class="bg-white px-6 py-4 rounded-xl shadow-sm border border-navy-100/60 card-hover flex items-center gap-3">
-                        <div class="w-10 h-10 bg-navy-900 rounded-lg flex items-center justify-center">
-                            <i class="fa-solid fa-globe text-teal-400 text-sm"></i>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger">
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl hover:bg-medical-50 transition-colors">
+                            <div class="w-10 h-10 bg-medical-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-certificate text-teal-300 text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-medical-900 text-sm">BCS (Health)</div>
+                                <div class="text-slate-400 text-xs mt-0.5">Bangladesh Civil Service</div>
+                            </div>
                         </div>
-                        <div>
-                            <div class="font-semibold text-navy-900 text-sm">MRCS Part A (UK)</div>
-                            <div class="text-xs text-navy-400">Royal College of Surgeons</div>
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl hover:bg-medical-50 transition-colors">
+                            <div class="w-10 h-10 bg-medical-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-globe text-teal-300 text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-medical-900 text-sm">MRCS Part A (UK)</div>
+                                <div class="text-slate-400 text-xs mt-0.5">Royal College of Surgeons</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="bg-white px-6 py-4 rounded-xl shadow-sm border border-navy-100/60 card-hover flex items-center gap-3">
-                        <div class="w-10 h-10 bg-navy-900 rounded-lg flex items-center justify-center">
-                            <i class="fa-solid fa-scalpel text-teal-400 text-sm"></i>
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl hover:bg-medical-50 transition-colors">
+                            <div class="w-10 h-10 bg-medical-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-scalpel text-teal-300 text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-medical-900 text-sm">FCPS Part-I (Surgery)</div>
+                                <div class="text-slate-400 text-xs mt-0.5">College of Physicians &amp; Surgeons</div>
+                            </div>
                         </div>
-                        <div>
-                            <div class="font-semibold text-navy-900 text-sm">FCPS Part-I (Surgery)</div>
-                            <div class="text-xs text-navy-400">College of Physicians & Surgeons</div>
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl hover:bg-medical-50 transition-colors">
+                            <div class="w-10 h-10 bg-medical-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-bone text-teal-300 text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-medical-900 text-sm">FCPS Part-I (Ortho)</div>
+                                <div class="text-slate-400 text-xs mt-0.5">Orthopedic Surgery</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="bg-white px-6 py-4 rounded-xl shadow-sm border border-navy-100/60 card-hover flex items-center gap-3">
-                        <div class="w-10 h-10 bg-navy-900 rounded-lg flex items-center justify-center">
-                            <i class="fa-solid fa-bone text-teal-400 text-sm"></i>
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl hover:bg-medical-50 transition-colors">
+                            <div class="w-10 h-10 bg-medical-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-user-graduate text-teal-300 text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-medical-900 text-sm">FCPS Part-II Trainee</div>
+                                <div class="text-slate-400 text-xs mt-0.5">Orthopedic Surgery</div>
+                            </div>
                         </div>
-                        <div>
-                            <div class="font-semibold text-navy-900 text-sm">FCPS Part-I (Ortho)</div>
-                            <div class="text-xs text-navy-400">Orthopedic Surgery</div>
-                        </div>
-                    </div>
-                    <div class="bg-white px-6 py-4 rounded-xl shadow-sm border border-navy-100/60 card-hover flex items-center gap-3">
-                        <div class="w-10 h-10 bg-navy-900 rounded-lg flex items-center justify-center">
-                            <i class="fa-solid fa-user-graduate text-teal-400 text-sm"></i>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-navy-900 text-sm">FCPS Part-II Trainee</div>
-                            <div class="text-xs text-navy-400">Orthopedic Surgery</div>
-                        </div>
-                    </div>
-                    <div class="bg-white px-6 py-4 rounded-xl shadow-sm border border-navy-100/60 card-hover flex items-center gap-3">
-                        <div class="w-10 h-10 bg-navy-900 rounded-lg flex items-center justify-center">
-                            <i class="fa-solid fa-hospital text-teal-400 text-sm"></i>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-navy-900 text-sm">MS Phase-A (Ortho)</div>
-                            <div class="text-xs text-navy-400">Dhaka Medical College Hospital</div>
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl hover:bg-medical-50 transition-colors">
+                            <div class="w-10 h-10 bg-medical-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-hospital text-teal-300 text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-medical-900 text-sm">MS Phase-A (Ortho)</div>
+                                <div class="text-slate-400 text-xs mt-0.5">Dhaka Medical College Hospital</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -490,25 +766,26 @@
     <!-- ==================== EXPERIENCE ==================== -->
     <section id="experience" class="py-20 md:py-28 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="reveal text-center mb-16">
-                <p class="text-teal-600 font-accent text-sm tracking-widest uppercase mb-2">Career Journey</p>
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-navy-900 inline-block section-title">Professional Experience</h2>
+            <div class="reveal text-center mb-14">
+                <span class="section-label mb-4 inline-block">Career Journey</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-medical-900 section-heading center mt-4">Professional Experience</h2>
             </div>
 
             <div class="relative">
-                <div class="timeline-line hidden md:block"></div>
+                <!-- Timeline line (desktop only) -->
+                <div class="tl-line hidden md:block"></div>
 
                 <!-- Experience 1 -->
-                <div class="timeline-item reveal relative md:flex md:items-start mb-12 pl-14 md:pl-0">
+                <div class="tl-item reveal relative md:flex md:items-start mb-10 pl-10 md:pl-0">
                     <div class="md:w-1/2 md:pr-12 md:text-right">
-                        <div class="bg-white rounded-2xl p-7 card-hover shadow-sm border border-navy-100/60 md:ml-auto md:max-w-md">
-                            <div class="flex items-center gap-3 mb-3 md:justify-end">
-                                <span class="px-3 py-1 bg-teal-500/10 text-teal-700 text-xs font-semibold rounded-full">Oct 2024 – Jan 2025</span>
-                            </div>
-                            <h3 class="font-display text-lg font-bold text-navy-900 mb-1">Emergency & Residential Medical Officer</h3>
-                            <p class="text-teal-600 font-semibold text-sm mb-3">Victoria Specialized Hospital & Diabetic Center</p>
-                            <p class="text-navy-400 text-xs mb-4 flex items-center gap-1 md:justify-end"><i class="fa-solid fa-location-dot"></i> Narail Sadar, Bangladesh</p>
-                            <ul class="text-navy-500 text-sm space-y-2 md:text-right">
+                        <div class="med-card p-6 md:p-7 md:ml-auto md:max-w-md">
+                            <span class="inline-block px-3 py-1 bg-teal-50 text-teal-700 text-xs font-bold rounded-full mb-4 md:ml-auto md:block md:w-fit">Oct 2024 – Jan 2025</span>
+                            <h3 class="font-serif text-lg font-bold text-medical-900 mb-1">Emergency &amp; Residential Medical Officer</h3>
+                            <p class="text-teal-600 font-semibold text-sm mb-1">Victoria Specialized Hospital &amp; Diabetic Center</p>
+                            <p class="text-slate-400 text-xs mb-4 flex items-center gap-1 md:justify-end">
+                                <i class="fa-solid fa-location-dot text-xs"></i> Narail Sadar, Bangladesh
+                            </p>
+                            <ul class="text-slate-500 text-sm space-y-2 md:text-right">
                                 <li>Admitted and managed emergency and diabetic patients</li>
                                 <li>Provided 24/7 inpatient care and clinical supervision</li>
                                 <li>Performed minor procedures — catheterization, IV access, wound dressing</li>
@@ -516,23 +793,23 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="timeline-dot"></div>
+                    <div class="tl-dot"></div>
                     <div class="md:w-1/2"></div>
                 </div>
 
                 <!-- Experience 2 -->
-                <div class="timeline-item reveal relative md:flex md:items-start mb-12 pl-14 md:pl-0">
+                <div class="tl-item reveal relative md:flex md:items-start mb-10 pl-10 md:pl-0">
                     <div class="md:w-1/2"></div>
-                    <div class="timeline-dot"></div>
+                    <div class="tl-dot"></div>
                     <div class="md:w-1/2 md:pl-12">
-                        <div class="bg-white rounded-2xl p-7 card-hover shadow-sm border border-navy-100/60 md:max-w-md">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="px-3 py-1 bg-teal-500/10 text-teal-700 text-xs font-semibold rounded-full">Aug 2024 – Sept 2024</span>
-                            </div>
-                            <h3 class="font-display text-lg font-bold text-navy-900 mb-1">Emergency & Residential Medical Officer</h3>
-                            <p class="text-teal-600 font-semibold text-sm mb-3">Doctors Specialized Hospital Limited</p>
-                            <p class="text-navy-400 text-xs mb-4 flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> Narail Sadar, Bangladesh</p>
-                            <ul class="text-navy-500 text-sm space-y-2">
+                        <div class="med-card p-6 md:p-7 md:max-w-md">
+                            <span class="inline-block px-3 py-1 bg-teal-50 text-teal-700 text-xs font-bold rounded-full mb-4">Aug 2024 – Sept 2024</span>
+                            <h3 class="font-serif text-lg font-bold text-medical-900 mb-1">Emergency &amp; Residential Medical Officer</h3>
+                            <p class="text-teal-600 font-semibold text-sm mb-1">Doctors Specialized Hospital Limited</p>
+                            <p class="text-slate-400 text-xs mb-4 flex items-center gap-1">
+                                <i class="fa-solid fa-location-dot text-xs"></i> Narail Sadar, Bangladesh
+                            </p>
+                            <ul class="text-slate-500 text-sm space-y-2">
                                 <li>Assisted senior surgeons in elective and emergency surgical procedures</li>
                                 <li>Performed pre-operative preparation and post-operative monitoring</li>
                                 <li>Supported OT protocols including instrument handling and sterility</li>
@@ -543,44 +820,44 @@
                 </div>
 
                 <!-- Experience 3 -->
-                <div class="timeline-item reveal relative md:flex md:items-start mb-12 pl-14 md:pl-0">
+                <div class="tl-item reveal relative md:flex md:items-start mb-10 pl-10 md:pl-0">
                     <div class="md:w-1/2 md:pr-12 md:text-right">
-                        <div class="bg-white rounded-2xl p-7 card-hover shadow-sm border border-navy-100/60 md:ml-auto md:max-w-md">
-                            <div class="flex items-center gap-3 mb-3 md:justify-end">
-                                <span class="px-3 py-1 bg-teal-500/10 text-teal-700 text-xs font-semibold rounded-full">Jan 2024 – Jul 2024</span>
-                            </div>
-                            <h3 class="font-display text-lg font-bold text-navy-900 mb-1">FCPS Part-II Trainee (General Surgery)</h3>
-                            <p class="text-teal-600 font-semibold text-sm mb-3">Dhaka Medical College Hospital</p>
-                            <p class="text-navy-400 text-xs mb-4 flex items-center gap-1 md:justify-end"><i class="fa-solid fa-location-dot"></i> Dhaka, Bangladesh</p>
-                            <ul class="text-navy-500 text-sm space-y-2 md:text-right">
+                        <div class="med-card p-6 md:p-7 md:ml-auto md:max-w-md">
+                            <span class="inline-block px-3 py-1 bg-teal-50 text-teal-700 text-xs font-bold rounded-full mb-4 md:ml-auto md:block md:w-fit">Jan 2024 – Jul 2024</span>
+                            <h3 class="font-serif text-lg font-bold text-medical-900 mb-1">FCPS Part-II Trainee (General Surgery)</h3>
+                            <p class="text-teal-600 font-semibold text-sm mb-1">Dhaka Medical College Hospital</p>
+                            <p class="text-slate-400 text-xs mb-4 flex items-center gap-1 md:justify-end">
+                                <i class="fa-solid fa-location-dot text-xs"></i> Dhaka, Bangladesh
+                            </p>
+                            <ul class="text-slate-500 text-sm space-y-2 md:text-right">
                                 <li>Assisted in major surgeries — hernia repair, appendectomy, cholecystectomy</li>
                                 <li>Managed emergency surgical cases and trauma patients</li>
-                                <li>Performed minor procedures — I&D, suturing, wound care</li>
+                                <li>Performed minor procedures — I&amp;D, suturing, wound care</li>
                                 <li>Participated in daily rounds, academic sessions, case presentations</li>
                                 <li>Maintained CPSP logbook and contributed to dissertation research</li>
                             </ul>
                         </div>
                     </div>
-                    <div class="timeline-dot"></div>
+                    <div class="tl-dot"></div>
                     <div class="md:w-1/2"></div>
                 </div>
 
                 <!-- Experience 4 -->
-                <div class="timeline-item reveal relative md:flex md:items-start mb-12 pl-14 md:pl-0">
+                <div class="tl-item reveal relative md:flex md:items-start mb-4 pl-10 md:pl-0">
                     <div class="md:w-1/2"></div>
-                    <div class="timeline-dot"></div>
+                    <div class="tl-dot"></div>
                     <div class="md:w-1/2 md:pl-12">
-                        <div class="bg-white rounded-2xl p-7 card-hover shadow-sm border border-navy-100/60 md:max-w-md">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="px-3 py-1 bg-teal-500/10 text-teal-700 text-xs font-semibold rounded-full">Jul 2022 – Jun 2023</span>
-                            </div>
-                            <h3 class="font-display text-lg font-bold text-navy-900 mb-1">Intern Doctor</h3>
-                            <p class="text-teal-600 font-semibold text-sm mb-3">Rajshahi Medical College Hospital</p>
-                            <p class="text-navy-400 text-xs mb-4 flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> Rajshahi, Bangladesh</p>
-                            <ul class="text-navy-500 text-sm space-y-2">
-                                <li>Completed clinical rotations in Medicine, Surgery, Gynae & Obs, Pediatrics</li>
+                        <div class="med-card p-6 md:p-7 md:max-w-md">
+                            <span class="inline-block px-3 py-1 bg-teal-50 text-teal-700 text-xs font-bold rounded-full mb-4">Jul 2022 – Jun 2023</span>
+                            <h3 class="font-serif text-lg font-bold text-medical-900 mb-1">Intern Doctor</h3>
+                            <p class="text-teal-600 font-semibold text-sm mb-1">Rajshahi Medical College Hospital</p>
+                            <p class="text-slate-400 text-xs mb-4 flex items-center gap-1">
+                                <i class="fa-solid fa-location-dot text-xs"></i> Rajshahi, Bangladesh
+                            </p>
+                            <ul class="text-slate-500 text-sm space-y-2">
+                                <li>Completed clinical rotations in Medicine, Surgery, Gynae &amp; Obs, Pediatrics</li>
                                 <li>Took patient histories, performed physical exams, assisted in diagnosis</li>
-                                <li>Assisted in minor & major surgical procedures, emergency management</li>
+                                <li>Assisted in minor &amp; major surgical procedures, emergency management</li>
                                 <li>Participated in ward rounds, OPD clinics, and case discussions</li>
                             </ul>
                         </div>
@@ -591,81 +868,86 @@
     </section>
 
     <!-- ==================== LEADERSHIP & VOLUNTEER ==================== -->
-    <section id="leadership" class="py-20 md:py-28 bg-navy-900 text-white relative overflow-hidden">
-        <div class="float-shape w-72 h-72 bg-teal-400 -top-10 right-20" style="animation-delay:-3s"></div>
-        <div class="float-shape w-48 h-48 bg-gold-400 bottom-20 -left-10" style="animation-delay:-5s"></div>
+    <section id="leadership" class="py-20 md:py-28 bg-medical-900 text-white relative overflow-hidden">
+        <!-- Decorative crosses -->
+        <i class="fa-solid fa-plus medical-cross" style="right:-3rem; top:10%; font-size:18rem;"></i>
+        <i class="fa-solid fa-plus medical-cross" style="left:-4rem; bottom:5%; font-size:12rem;"></i>
 
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="reveal text-center mb-16">
-                <p class="text-teal-300 font-accent text-sm tracking-widest uppercase mb-2">Beyond the Operating Room</p>
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-white inline-block section-title">Leadership & Service</h2>
+            <div class="reveal text-center mb-14">
+                <span class="section-label mb-4 inline-block" style="background: rgba(45,212,191,0.12); border-color: rgba(45,212,191,0.3); color: #5eead4;">
+                    Beyond the Operating Room
+                </span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-white section-heading center mt-4">Leadership &amp; Service</h2>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8 stagger reveal">
+            <div class="reveal grid md:grid-cols-2 gap-6 stagger mb-10">
                 <!-- Leadership -->
-                <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 card-hover">
-                    <div class="w-14 h-14 bg-teal-500/15 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-hand-holding-heart text-teal-400 text-2xl"></i>
+                <div class="leadership-card p-7 md:p-8">
+                    <div class="w-13 h-13 bg-teal-500/15 rounded-xl flex items-center justify-center mb-6 w-14 h-14">
+                        <i class="fa-solid fa-hand-holding-heart text-teal-300 text-2xl"></i>
                     </div>
-                    <div class="text-xs font-semibold text-teal-300 tracking-wider uppercase mb-3">2016 – 2021</div>
-                    <h3 class="font-display text-xl font-bold text-white mb-2">Patient Welfare Secretary</h3>
-                    <p class="text-teal-300 text-sm font-medium mb-5">Sandhani, Rajshahi Medical College Unit</p>
-                    <ul class="text-navy-200 text-sm space-y-3">
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5"></i>
+                    <span class="text-xs font-bold text-teal-300 tracking-wider uppercase">2016 – 2021</span>
+                    <h3 class="font-serif text-xl font-bold text-white mt-2 mb-1">Patient Welfare Secretary</h3>
+                    <p class="text-teal-300 text-sm font-semibold mb-5">Sandhani, Rajshahi Medical College Unit</p>
+                    <ul class="text-slate-300 text-sm space-y-3">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5 flex-shrink-0"></i>
                             Worked closely with doctors, nurses, and hospital administration to understand patient needs
                         </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5"></i>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5 flex-shrink-0"></i>
                             Prioritized arranging blood for emergency and high-risk patients
                         </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5"></i>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5 flex-shrink-0"></i>
                             Organized medical camps and awareness drives focused on public health
                         </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5"></i>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5 flex-shrink-0"></i>
                             Ensured no patient was denied help due to socio-economic reasons
                         </li>
                     </ul>
                 </div>
 
                 <!-- Volunteer -->
-                <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 card-hover">
+                <div class="leadership-card p-7 md:p-8">
                     <div class="w-14 h-14 bg-teal-500/15 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-people-group text-teal-400 text-2xl"></i>
+                        <i class="fa-solid fa-people-group text-teal-300 text-2xl"></i>
                     </div>
-                    <div class="text-xs font-semibold text-teal-300 tracking-wider uppercase mb-3">2016 – 2021</div>
-                    <h3 class="font-display text-xl font-bold text-white mb-2">Community Health Organizer</h3>
-                    <p class="text-teal-300 text-sm font-medium mb-5">Sandhani, Rajshahi Medical College Unit</p>
-                    <ul class="text-navy-200 text-sm space-y-3">
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5"></i>
+                    <span class="text-xs font-bold text-teal-300 tracking-wider uppercase">2016 – 2021</span>
+                    <h3 class="font-serif text-xl font-bold text-white mt-2 mb-1">Community Health Organizer</h3>
+                    <p class="text-teal-300 text-sm font-semibold mb-5">Sandhani, Rajshahi Medical College Unit</p>
+                    <ul class="text-slate-300 text-sm space-y-3">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5 flex-shrink-0"></i>
                             Arranged blood donation drives and free medical camps in remote villages
                         </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5"></i>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5 flex-shrink-0"></i>
                             Planned and executed regular blood donation camps within college and community
                         </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5"></i>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5 flex-shrink-0"></i>
                             Promoted voluntary blood donation through seminars, social media, and brochures
                         </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5"></i>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-chevron-right text-teal-400 text-xs mt-1.5 flex-shrink-0"></i>
                             Built relationships with NGOs, student groups, media, and local health organizations
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Membership -->
-            <div class="reveal mt-12 text-center">
-                <div class="inline-flex items-center gap-4 bg-white/5 border border-white/10 rounded-full px-8 py-4">
-                    <i class="fa-solid fa-id-card text-teal-400 text-xl"></i>
+            <!-- Membership badge -->
+            <div class="reveal text-center">
+                <div class="inline-flex flex-wrap items-center gap-4 bg-white/6 border border-white/12 rounded-2xl px-7 py-5">
+                    <div class="w-12 h-12 bg-teal-500/20 rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-id-card text-teal-300 text-lg"></i>
+                    </div>
                     <div class="text-left">
-                        <div class="text-white font-semibold text-sm">Bangladesh Medical & Dental Council (BM&DC)</div>
-                        <div class="text-navy-300 text-xs">Registration ID: A125848</div>
+                        <div class="text-white font-bold text-sm">Bangladesh Medical &amp; Dental Council (BM&DC)</div>
+                        <div class="text-slate-300 text-xs mt-0.5">Registration Number: A125848</div>
                     </div>
                 </div>
             </div>
@@ -675,56 +957,66 @@
     <!-- ==================== CONTACT ==================== -->
     <section id="contact" class="py-20 md:py-28 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="reveal text-center mb-16">
-                <p class="text-teal-600 font-accent text-sm tracking-widest uppercase mb-2">Get in Touch</p>
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-navy-900 inline-block section-title">Contact</h2>
+            <div class="reveal text-center mb-14">
+                <span class="section-label mb-4 inline-block">Get in Touch</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-medical-900 section-heading center mt-4">Contact</h2>
             </div>
 
-            <div class="reveal max-w-2xl mx-auto">
-                <div class="grid sm:grid-cols-2 gap-6 stagger">
-                    <a href="tel:+8801743409875" class="flex items-center gap-5 p-6 bg-navy-50 rounded-2xl card-hover group">
-                        <div class="w-14 h-14 bg-teal-500/10 group-hover:bg-teal-500 rounded-xl flex items-center justify-center transition-colors duration-300">
-                            <i class="fa-solid fa-phone text-teal-600 group-hover:text-white text-xl transition-colors duration-300"></i>
+            <div class="reveal max-w-xl mx-auto">
+                <div class="grid sm:grid-cols-2 gap-5 stagger mb-8">
+                    <a href="tel:+8801743409875" class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fa-solid fa-phone text-teal-600 text-xl transition-colors"></i>
                         </div>
                         <div>
-                            <div class="text-xs text-navy-400 uppercase tracking-wider mb-1">Phone</div>
-                            <div class="text-navy-900 font-semibold">+880 1743-409875</div>
+                            <div class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">Phone</div>
+                            <div class="text-medical-900 font-bold text-sm">+880 1743-409875</div>
                         </div>
                     </a>
-                    <a href="mailto:shuvojoty58th@gmail.com" class="flex items-center gap-5 p-6 bg-navy-50 rounded-2xl card-hover group">
-                        <div class="w-14 h-14 bg-teal-500/10 group-hover:bg-teal-500 rounded-xl flex items-center justify-center transition-colors duration-300">
-                            <i class="fa-solid fa-envelope text-teal-600 group-hover:text-white text-xl transition-colors duration-300"></i>
+                    <a href="mailto:shuvojoty58th@gmail.com" class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fa-solid fa-envelope text-teal-600 text-xl transition-colors"></i>
                         </div>
                         <div>
-                            <div class="text-xs text-navy-400 uppercase tracking-wider mb-1">Email</div>
-                            <div class="text-navy-900 font-semibold text-sm">shuvojoty58th@gmail.com</div>
+                            <div class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">Email</div>
+                            <div class="text-medical-900 font-bold text-sm break-all">shuvojoty58th@gmail.com</div>
                         </div>
                     </a>
                 </div>
 
-                <div class="text-center mt-12">
-                    <p class="text-navy-400 font-body text-sm">Currently based in <span class="text-navy-600 font-medium">Dhaka, Bangladesh</span></p>
-                    <p class="text-navy-400 font-body text-sm mt-1">MS Phase-A Trainee at <span class="text-navy-600 font-medium">Dhaka Medical College Hospital</span></p>
+                <div class="med-card p-6 text-center">
+                    <i class="fa-solid fa-map-pin text-teal-500 text-2xl mb-3"></i>
+                    <p class="text-slate-500 text-sm">Currently based in <span class="text-medical-800 font-semibold">Dhaka, Bangladesh</span></p>
+                    <p class="text-slate-500 text-sm mt-1">MS Phase-A Trainee at <span class="text-medical-800 font-semibold">Dhaka Medical College Hospital</span></p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer class="bg-navy-900 py-10">
-        <div class="accent-line mb-8"></div>
+    <footer class="bg-medical-900 py-10">
+        <div class="top-bar mb-8" style="opacity:0.5;"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <a href="#hero" class="font-display text-xl font-semibold text-white mb-4 inline-block">Dr. Dev Joty Biswas<span class="text-teal-400">.</span></a>
-            <p class="text-navy-400 text-sm mb-6">MBBS (RMC) &bull; BCS (Health) &bull; MRCS Part A (UK) &bull; FCPS Part-II Trainee (Orthopedic Surgery)</p>
-            <div class="flex justify-center gap-4 mb-8">
-                <a href="mailto:shuvojoty58th@gmail.com" class="w-10 h-10 bg-white/5 hover:bg-teal-500 border border-white/10 rounded-full flex items-center justify-center transition-all duration-300">
+            <div class="flex items-center justify-center gap-2.5 mb-3">
+                <div class="w-7 h-7 bg-teal-500 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-plus text-white text-xs"></i>
+                </div>
+                <a href="#hero" class="font-serif text-lg font-bold text-white">Dr. Dev Joty Biswas<span class="text-teal-400">.</span></a>
+            </div>
+            <p class="text-slate-400 text-xs mb-6">MBBS (RMC) &bull; BCS (Health) &bull; MRCS Part A (UK) &bull; FCPS Part-II Trainee (Orthopedic Surgery)</p>
+            <div class="flex justify-center gap-3 mb-8">
+                <a href="mailto:shuvojoty58th@gmail.com"
+                   class="w-10 h-10 bg-white/6 hover:bg-teal-500 border border-white/10 rounded-full flex items-center justify-center transition-all duration-300"
+                   title="Email">
                     <i class="fa-solid fa-envelope text-white text-sm"></i>
                 </a>
-                <a href="tel:+8801743409875" class="w-10 h-10 bg-white/5 hover:bg-teal-500 border border-white/10 rounded-full flex items-center justify-center transition-all duration-300">
+                <a href="tel:+8801743409875"
+                   class="w-10 h-10 bg-white/6 hover:bg-teal-500 border border-white/10 rounded-full flex items-center justify-center transition-all duration-300"
+                   title="Phone">
                     <i class="fa-solid fa-phone text-white text-sm"></i>
                 </a>
             </div>
-            <p class="text-navy-500 text-xs">&copy; <span id="year"></span> Dr. Dev Joty Biswas. All rights reserved.</p>
+            <p class="text-slate-600 text-xs">&copy; <span id="year"></span> Dr. Dev Joty Biswas. All rights reserved.</p>
         </div>
     </footer>
 
@@ -733,84 +1025,66 @@
         // Year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Navbar scroll effect
+        // Navbar scroll
         const navbar = document.getElementById('navbar');
-        let lastScroll = 0;
         window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            if (currentScroll > 80) {
-                navbar.style.background = 'rgba(16,42,67,0.95)';
-                navbar.style.backdropFilter = 'blur(12px)';
-                navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.15)';
+            if (window.pageYOffset > 60) {
+                navbar.style.background = 'rgba(15,31,74,0.96)';
+                navbar.style.backdropFilter = 'blur(16px)';
+                navbar.style.boxShadow = '0 2px 24px rgba(0,0,0,0.18)';
             } else {
                 navbar.style.background = 'transparent';
                 navbar.style.backdropFilter = 'none';
                 navbar.style.boxShadow = 'none';
             }
-            lastScroll = currentScroll;
         });
 
-        // Mobile menu
-        const menuBtn = document.getElementById('menuBtn');
-        const closeMenuBtn = document.getElementById('closeMenu');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuOverlay = document.getElementById('menuOverlay');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+        // Mobile drawer
+        const menuBtn      = document.getElementById('menuBtn');
+        const closeDrawer  = document.getElementById('closeDrawer');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const drawerOverlay= document.getElementById('drawerOverlay');
+        const drawerLinks  = document.querySelectorAll('.drawer-link');
 
-        function openMenu() {
-            mobileMenu.classList.add('open');
-            menuOverlay.classList.remove('hidden');
+        function openDrawer() {
+            mobileDrawer.classList.add('open');
+            drawerOverlay.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
-        function closeMenu() {
-            mobileMenu.classList.remove('open');
-            menuOverlay.classList.add('hidden');
+        function closeDrawerFn() {
+            mobileDrawer.classList.remove('open');
+            drawerOverlay.classList.add('hidden');
             document.body.style.overflow = '';
         }
-        menuBtn.addEventListener('click', openMenu);
-        closeMenuBtn.addEventListener('click', closeMenu);
-        menuOverlay.addEventListener('click', closeMenu);
-        mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+        menuBtn.addEventListener('click', openDrawer);
+        closeDrawer.addEventListener('click', closeDrawerFn);
+        drawerOverlay.addEventListener('click', closeDrawerFn);
+        drawerLinks.forEach(l => l.addEventListener('click', closeDrawerFn));
 
         // Reveal on scroll
-        const revealElements = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
+        const revealEls = document.querySelectorAll('.reveal');
+        const revObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    // Trigger stagger children
-                    const staggerEl = entry.target.querySelector('.stagger') || (entry.target.classList.contains('stagger') ? entry.target : null);
-                    if (staggerEl) staggerEl.classList.add('active');
+                    const stagger = entry.target.querySelector('.stagger') ||
+                        (entry.target.classList.contains('stagger') ? entry.target : null);
+                    if (stagger) stagger.classList.add('active');
                 }
             });
-        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-        revealElements.forEach(el => observer.observe(el));
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(el => revObserver.observe(el));
 
-        // Stagger elements not inside reveal
-        const standaloneStagger = document.querySelectorAll('.stagger:not(.reveal .stagger)');
-        const staggerObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.15 });
-        standaloneStagger.forEach(el => staggerObserver.observe(el));
-
-        // Active nav link on scroll
+        // Active nav link
         const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks  = document.querySelectorAll('.nav-link');
         window.addEventListener('scroll', () => {
             let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 120;
-                if (window.pageYOffset >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
+            sections.forEach(s => {
+                if (window.pageYOffset >= s.offsetTop - 130) current = s.id;
             });
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
+            navLinks.forEach(l => {
+                l.classList.toggle('active', l.getAttribute('href') === '#' + current);
             });
         });
     </script>

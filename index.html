@@ -377,6 +377,139 @@
         @media (max-width: 640px) {
             .stat-num { font-size: 1.6rem; }
         }
+
+        /* ==================== DARK MODE ==================== */
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #fff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        body.dark-mode {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #334155;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        body.dark-mode {
+            background: #0f172a;
+        }
+
+        body.dark-mode section {
+            background: var(--bg-secondary) !important;
+            color: var(--text-primary);
+        }
+
+        body.dark-mode section#hero {
+            background: linear-gradient(160deg, #0a0f2a 0%, #141f52 45%, #0a5d52 100%) !important;
+        }
+
+        body.dark-mode .med-card {
+            background: #1e293b;
+            border-color: #334155;
+            color: var(--text-primary);
+        }
+
+        body.dark-mode .med-card p,
+        body.dark-mode .med-card li,
+        body.dark-mode .med-card div {
+            color: var(--text-secondary);
+        }
+
+        body.dark-mode .section-label {
+            background: rgba(45,212,191,0.15);
+            border-color: rgba(45,212,191,0.3);
+        }
+
+        body.dark-mode .expertise-tag {
+            background: rgba(45,212,191,0.1);
+            border-color: rgba(45,212,191,0.3);
+            color: #5eead4;
+        }
+
+        body.dark-mode .contact-card {
+            background: #1e293b;
+            border-color: #334155;
+            color: var(--text-primary);
+        }
+
+        body.dark-mode .contact-icon {
+            background: rgba(45,212,191,0.1);
+        }
+
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3,
+        body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 {
+            color: #f1f5f9;
+        }
+
+        body.dark-mode .text-slate-500 { color: #cbd5e1; }
+        body.dark-mode .text-slate-600 { color: #94a3b8; }
+        body.dark-mode .text-slate-700 { color: #64748b; }
+        body.dark-mode .text-medical-900 { color: #dbeafe; }
+        body.dark-mode .text-slate-400 { color: #cbd5e1; }
+        body.dark-mode .text-slate-800 { color: #f1f5f9; }
+
+        body.dark-mode .bg-slate-50 { background: #1e293b; }
+        body.dark-mode .bg-white { background: #1e293b; }
+        body.dark-mode .bg-medical-900 { background: #0a0f2a; }
+
+        body.dark-mode ::-webkit-scrollbar-track { background: #1e293b; }
+        body.dark-mode ::-webkit-scrollbar-thumb { background: #14b8a6; }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: #14b8a6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
+            z-index: 40;
+        }
+
+        .back-to-top:hover {
+            background: #0d9488;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(20, 184, 166, 0.6);
+        }
+
+        .back-to-top.show {
+            display: flex;
+        }
+
+        body.dark-mode .back-to-top {
+            background: #0d9488;
+        }
+
+        body.dark-mode .back-to-top:hover {
+            background: #14b8a6;
+        }
+
+        @media (max-width: 640px) {
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -400,15 +533,23 @@
                     <a href="#about"      class="nav-link">About</a>
                     <a href="#education"  class="nav-link">Education</a>
                     <a href="#experience" class="nav-link">Experience</a>
-                    <a href="#leadership" class="nav-link">Service</a>
+                    <a href="#leadership" class="nav-link">Leadership &amp; Extra Curricular</a>
+                    <button id="darkModeToggle" class="flex items-center justify-center w-10 h-10 text-white rounded-lg hover:bg-white/10 transition-colors" aria-label="Toggle dark mode">
+                        <i class="fa-solid fa-moon text-lg"></i>
+                    </button>
                     <a href="#contact"    class="ml-2 px-5 py-2 bg-teal-500 hover:bg-teal-400 text-white text-sm font-bold rounded-full transition-all duration-300 shadow-lg shadow-teal-500/25 hover:shadow-teal-400/35 hover:-translate-y-0.5 uppercase tracking-wider">
                         Contact
                     </a>
                 </div>
                 <!-- Mobile toggle -->
-                <button id="menuBtn" class="md:hidden flex items-center justify-center w-10 h-10 text-white rounded-lg hover:bg-white/10 transition-colors" aria-label="Toggle menu">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
+                <div class="md:hidden flex items-center gap-2">
+                    <button id="darkModeToggleMobile" class="flex items-center justify-center w-10 h-10 text-white rounded-lg hover:bg-white/10 transition-colors" aria-label="Toggle dark mode">
+                        <i class="fa-solid fa-moon text-lg"></i>
+                    </button>
+                    <button id="menuBtn" class="flex items-center justify-center w-10 h-10 text-white rounded-lg hover:bg-white/10 transition-colors" aria-label="Toggle menu">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
@@ -417,9 +558,14 @@
     <div id="mobileDrawer" class="mobile-drawer fixed inset-y-0 right-0 w-72 bg-medical-900/98 backdrop-blur-xl z-50 flex flex-col shadow-2xl">
         <div class="flex items-center justify-between px-6 py-5 border-b border-white/10">
             <span class="font-serif font-bold text-white text-lg">Menu</span>
-            <button id="closeDrawer" class="w-9 h-9 flex items-center justify-center text-white rounded-lg hover:bg-white/10 transition-colors">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
+            <div class="flex items-center gap-2">
+                <button id="darkModeToggleDrawer" class="flex items-center justify-center w-9 h-9 text-white rounded-lg hover:bg-white/10 transition-colors" aria-label="Toggle dark mode">
+                    <i class="fa-solid fa-moon text-lg"></i>
+                </button>
+                <button id="closeDrawer" class="w-9 h-9 flex items-center justify-center text-white rounded-lg hover:bg-white/10 transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
         </div>
         <div class="flex flex-col px-6 py-4 gap-1 flex-1">
             <a href="#about"      class="drawer-link flex items-center gap-3 py-4 text-base font-semibold text-slate-200 hover:text-teal-300 border-b border-white/8 transition-colors">
@@ -432,7 +578,7 @@
                 <i class="fa-solid fa-briefcase-medical w-5 text-teal-400 text-sm"></i> Experience
             </a>
             <a href="#leadership" class="drawer-link flex items-center gap-3 py-4 text-base font-semibold text-slate-200 hover:text-teal-300 border-b border-white/8 transition-colors">
-                <i class="fa-solid fa-hand-holding-heart w-5 text-teal-400 text-sm"></i> Service
+                <i class="fa-solid fa-hand-holding-heart w-5 text-teal-400 text-sm"></i> Leadership &amp; Extra Curricular
             </a>
         </div>
         <div class="px-6 py-6">
@@ -878,7 +1024,7 @@
                 <span class="section-label mb-4 inline-block" style="background: rgba(45,212,191,0.12); border-color: rgba(45,212,191,0.3); color: #5eead4;">
                     Beyond the Operating Room
                 </span>
-                <h2 class="font-serif text-3xl md:text-4xl font-bold text-white section-heading center mt-4">Leadership &amp; Service</h2>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-white section-heading center mt-4">Leadership &amp; Extra Curricular</h2>
             </div>
 
             <div class="reveal grid md:grid-cols-2 gap-4 stagger mb-6">
@@ -1020,6 +1166,11 @@
         </div>
     </footer>
 
+    <!-- ==================== BACK TO TOP BUTTON ==================== -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
     <!-- ==================== SCRIPTS ==================== -->
     <script>
         // Year
@@ -1085,6 +1236,58 @@
             });
             navLinks.forEach(l => {
                 l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+            });
+        });
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const darkModeToggleMobile = document.getElementById('darkModeToggleMobile');
+        const darkModeToggleDrawer = document.getElementById('darkModeToggleDrawer');
+        const allDarkModeToggles = [darkModeToggle, darkModeToggleMobile, darkModeToggleDrawer];
+
+        // Check for saved dark mode preference
+        const savedDarkMode = localStorage.getItem('darkMode');
+        if (savedDarkMode === 'enabled') {
+            document.body.classList.add('dark-mode');
+            updateDarkModeIcons(true);
+        }
+
+        function updateDarkModeIcons(isDark) {
+            allDarkModeToggles.forEach(toggle => {
+                if (toggle) {
+                    toggle.innerHTML = isDark ? '<i class="fa-solid fa-sun text-lg"></i>' : '<i class="fa-solid fa-moon text-lg"></i>';
+                }
+            });
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            updateDarkModeIcons(isDarkMode);
+            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+        }
+
+        allDarkModeToggles.forEach(toggle => {
+            if (toggle) {
+                toggle.addEventListener('click', toggleDarkMode);
+            }
+        });
+
+        // Back to top button
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
     </script>
